@@ -114,5 +114,3 @@ void train_word2vec_with_loss(int num_epochs, float *d_weights, int *d_context_i
 4. 每個 epoch 結束後，輸出該 epoch 的平均損失。
 
 ---
-
-這樣的訓練過程充分利用 GPU 並行計算來加速模型訓練，並利用批次處理來提高效率。
