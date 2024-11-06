@@ -1,0 +1,1 @@
+show asys word embedding graph  
