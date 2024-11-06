@@ -38,11 +38,11 @@ __global__ void update_weights(float *weights, const int *context_indices, const
     }
 }
 ```
-weights：模型中的嵌入向量（每個單詞對應的向量）。
-context_indices：上下文單詞的索引（每個樣本的上下文詞）。
-target_indices：目標單詞的索引（每個樣本的目標詞）。
-num_samples：總樣本數。
-loss_sum：用於存儲所有樣本的總損失。
+weights：模型中的嵌入向量（每個單詞對應的向量）。 
+context_indices：上下文單詞的索引（每個樣本的上下文詞）。 
+target_indices：目標單詞的索引（每個樣本的目標詞）。 
+num_samples：總樣本數。 
+loss_sum：用於存儲所有樣本的總損失。 
 
 ## 流程：
 
