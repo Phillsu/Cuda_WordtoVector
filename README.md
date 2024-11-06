@@ -5,10 +5,11 @@ __device__ float compute_loss(float predicted, float target) {
     return 0.05f * (predicted - target) * (predicted - target);
 }
 ```
-predicted：預測的值（例如，模型計算出來的向量表示）。
-target：目標值（例如，對應的真實值或理想值）。
-這個函數計算的是平方損失（MSE，Mean Squared Error），即預測值與真實值之間的差異的平方，並將其乘以一個常數因子（0.05f）。
-這個損失函數用來衡量模型預測結果的誤差，越小的損失值表示模型預測越準確。
+predicted：預測的值（例如，模型計算出來的向量表示）。<br>
+target：目標值（例如，對應的真實值或理想值）。<br>
+這個函數計算的是平方損失（MSE，Mean Squared Error），即預測值與真實值之間的差異的平方，並將其乘以一個常數因子（0.05f）。<br>
+常數 0.05f 用於縮放損失值，這有助於減少權重更新過程中的過度調整，並穩定訓練過程。<br>
+這個損失函數用來衡量模型預測結果的誤差，越小的損失值表示模型預測越準確。<br>
 
 # 更新權重的 CUDA 核心函數
 ```cpp
@@ -38,11 +39,11 @@ __global__ void update_weights(float *weights, const int *context_indices, const
     }
 }
 ```
-weights：模型中的嵌入向量（每個單詞對應的向量）。 
-context_indices：上下文單詞的索引（每個樣本的上下文詞）。 
-target_indices：目標單詞的索引（每個樣本的目標詞）。 
-num_samples：總樣本數。 
-loss_sum：用於存儲所有樣本的總損失。 
+weights：模型中的嵌入向量（每個單詞對應的向量）。 <br>
+context_indices：上下文單詞的索引（每個樣本的上下文詞）。 <br>
+target_indices：目標單詞的索引（每個樣本的目標詞）。 <br>
+num_samples：總樣本數。 <br>
+loss_sum：用於存儲所有樣本的總損失。 <br>
 
 ## 流程：
 
@@ -91,12 +92,12 @@ void train_word2vec_with_loss(int num_epochs, float *d_weights, int *d_context_i
     cudaFree(d_loss_sum); // 釋放內存
 }
 ```
-num_epochs：訓練的總周期數。
-d_weights：設備端的權重（嵌入向量）。
-d_context_indices 和 d_target_indices：設備端的上下文和目標單詞索引。
-num_samples：訓練樣本數量。
-blockSize：每個 CUDA block 中的線程數量，用來設置 kernel 的執行規模。
-d_loss_sum：設備端的變數，用來存儲每個批次的總損失。
+num_epochs：訓練的總周期數。<br>
+d_weights：設備端的權重（嵌入向量）。<br>
+d_context_indices 和 d_target_indices：設備端的上下文和目標單詞索引。<br>
+num_samples：訓練樣本數量。<br>
+blockSize：每個 CUDA block 中的線程數量，用來設置 kernel 的執行規模。<br>
+d_loss_sum：設備端的變數，用來存儲每個批次的總損失。<br>
 
 ## 流程：
 
