@@ -50,7 +50,7 @@ loss_sum：用於存儲所有樣本的總損失。
 target 和 context 是從輸入索引中獲得的單詞索引，並用於查找對應的嵌入向量。
 針對每個維度的嵌入向量，根據學習率更新目標和上下文單詞的嵌入向量。
 計算每個維度的損失並累加到 sample_loss。
-最後，將 sample_loss 累加到總損失 loss_sum 中，並使用 atomicAdd 來保證並行更新不會產生競爭條件。
+最後，將 sample_loss 累加到總損失 loss_sum 中，並使用 atomicAdd 來保證並行更新不會產生Race Condition。
 
 
 ## 訓練過程函數
